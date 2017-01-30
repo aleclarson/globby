@@ -1,17 +1,15 @@
 {
   "name": "globby",
   "version": "4.0.0",
-  "author": {
-    "email": "sindresorhus@gmail.com",
-    "name": "Sindre Sorhus",
-    "url": "sindresorhus.com"
-  },
   "dependencies": {
+    "Promise": "aleclarson/Promise#2.2.1",
     "array-union": "^1.0.1",
     "arrify": "^1.0.0",
     "glob": "^6.0.1",
-    "object-assign": "^4.0.1",
-    "pify": "^2.0.0",
-    "pinkie-promise": "^2.0.0"
-  }
+    "object-assign": "^4.0.1"
+  },
+  "implicitDependencies": [
+    "assert",
+    "fs"
+  ]
 }

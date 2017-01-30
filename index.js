@@ -1,10 +1,12 @@
-'use strict';
-var Promise = require('pinkie-promise');
-var arrayUnion = require('array-union');
+
 var objectAssign = require('object-assign');
-var glob = require('glob');
+var arrayUnion = require('array-union');
+var Promise = require('Promise');
 var arrify = require('arrify');
-var pify = require('pify');
+
+var glob = require('glob');
+var globSync = glob.sync;
+var globAsync = Promise.ify(glob);
 
 function sortPatterns(patterns) {
 	patterns = arrify(patterns);
@@ -49,7 +51,7 @@ module.exports = function (patterns, opts) {
 
 	return Promise.all(sortedPatterns.positives.map(function (positive) {
 		var globOpts = setIgnore(opts, sortedPatterns.negatives, positive.index);
-		return pify(glob, Promise)(positive.pattern, globOpts);
+		return globAsync(positive.pattern, globOpts);
 	})).then(function (paths) {
 		return arrayUnion.apply(null, paths);
 	});
@@ -63,6 +65,6 @@ module.exports.sync = function (patterns, opts) {
 	}
 
 	return sortedPatterns.positives.reduce(function (ret, positive) {
-		return arrayUnion(ret, glob.sync(positive.pattern, setIgnore(opts, sortedPatterns.negatives, positive.index)));
+		return arrayUnion(ret, globSync(positive.pattern, setIgnore(opts, sortedPatterns.negatives, positive.index)));
 	}, []);
 };
