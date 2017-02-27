@@ -1,6 +1,6 @@
 {
   "name": "globby",
-  "version": "4.0.0",
+  "version": "4.0.1",
   "dependencies": {
     "Promise": "aleclarson/Promise#2.2.1",
     "array-union": "^1.0.1",
